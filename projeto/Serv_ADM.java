@@ -21,4 +21,19 @@ public class Serv_ADM extends Servidores {
                "Cargo: " + cargo + "\n" +
                "Departamento: " + departamento + "\n";
     }
+       public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
 }
