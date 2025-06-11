@@ -18,7 +18,37 @@ public abstract class Usuario {
         String resposta = "";
         return resposta;
     }
-   
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail_institucional() {
+        return email_institucional;
+    }
+
+    public void setEmail_institucional(String email_institucional) {
+        this.email_institucional = email_institucional;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }
 
 
