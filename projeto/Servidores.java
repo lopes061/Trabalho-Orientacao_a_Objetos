@@ -8,4 +8,11 @@ public abstract class Servidores extends Usuario {
         super(nome,email_institucional,telefone,senha);
         this.matricula_institucional = matricula_institucional;
     }
+    public String getMatricula_institucional() {
+        return matricula_institucional;
+    }
+
+    public void setMatriculaInstitucional(String matricula_institucional) {
+        this.matricula_institucional = matricula_institucional;
+    }
 }
