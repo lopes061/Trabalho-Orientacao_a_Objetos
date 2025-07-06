@@ -50,6 +50,6 @@ public abstract class EspacosFisicos {
     }
 
     public void removerEquipamentos(String equipamentos) {
-        equipamentos.remove(equipamentos);
+        this.equipamentos.remove(equipamentos);
     }
 }

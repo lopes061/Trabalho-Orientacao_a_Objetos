@@ -62,7 +62,7 @@ public class LaboratorioInformatica extends EspacosFisicos {
         softwares.remove(software);
     }
 
-    @Override
+    
     public void exibirInformacoes() {
         System.out.println("=== LABORATÓRIO DE INFORMÁTICA ===");
         System.out.println("Nome: " + nome);
