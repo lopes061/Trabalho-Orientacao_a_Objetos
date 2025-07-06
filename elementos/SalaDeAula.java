@@ -1,4 +1,4 @@
-package projeto;
+package elementos;
 import java.util.List;
 public class SalaDeAula extends EspacosFisicos{
     private boolean arCondicionado;

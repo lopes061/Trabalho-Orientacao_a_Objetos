@@ -1,4 +1,4 @@
-package projeto;
+package elementos;
 import java.util.List;
 public abstract class EspacosFisicos {
     protected String nome , tipo , localizacao;
