@@ -1,8 +1,8 @@
-package projeto.entidades.Usuario;
+package projeto.model;
 
 public class Professor extends Usuario {
     private String curso;
-    private String cargoAcademico; // auxiliar, assistente, adjunto, associado ou titular
+    private String cargoAcademico;
 
     public Professor(String nomeCompleto, String emailInstitucional, String telefone, 
                     String senha, String matricula, String curso, String cargoAcademico) {
@@ -10,10 +10,12 @@ public class Professor extends Usuario {
         this.curso = curso;
         this.cargoAcademico = cargoAcademico;
     }
+    
 
     public String getTipo() {
         return "Professor";
     }
+
 
     public void exibirInformacoes() {
         super.exibirInformacoes();
@@ -21,4 +23,7 @@ public class Professor extends Usuario {
         System.out.println("Curso: " + curso);
         System.out.println("Cargo Acadêmico: " + cargoAcademico);
     }
+
+    public String getCurso() { return curso; }
+    public String getCargoAcademico() { return cargoAcademico; }
 }
