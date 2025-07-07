@@ -1,29 +1,31 @@
 package model;
 
-import java.util.Date;
-import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class EspacosFisicos{
-    private String nome, localizacao;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nome, localizacao, tipo;
     private int capacidade;
-    private String[] equipamentos = new String[1000];
-    private int qtdEq = 0;
-    private Date[] hOcupados = new Date[1000];
-    private int horariosUtilizados = 0;
+    private List<String> equipamentos;
     
     public EspacosFisicos(){}
-    public EspacosFisicos(String nome, String localizacao, int capacidade)
+    public EspacosFisicos(String nome, String localizacao, String tipo, int capacidade, List<String> equipamentos)
     {
         this.nome = nome;
         this.localizacao = localizacao;
+        this.tipo = tipo;
         this.capacidade = capacidade;
-    }
-    public EspacosFisicos(String nome, String localizacao, int capacidade, String[] equipamentos, int qtdEq)
-    {
-        this.nome = nome;
-        this.localizacao = localizacao;
-        this.capacidade = capacidade;
-        setEquip(equipamentos, qtdEq);
+        this.equipamentos = equipamentos;
     }
 
     protected String getNome(){
@@ -40,6 +42,13 @@ public class EspacosFisicos{
         localizacao = local;
     }
 
+    protected String getTipo(){
+        return tipo;
+    }
+    protected void setTipo(String tp){
+        tipo = tp;
+    }
+
     protected int getCapacidade(){
         return capacidade;
     }
@@ -47,18 +56,15 @@ public class EspacosFisicos{
         capacidade = max;
     }
 
-    protected String[] getEquip(){
-        String[] equip = new String[qtdEq];
-        for(int i = 0; i < qtdEq; i++){
-            equip[i] = equipamentos[i];
-        }
-        return equip;
+    protected List<String> getEquip(){
+        return equipamentos;
     }
-    protected void setEquip(String[] equip, int qtdEquip){
-        int inicial = qtdEq;
-        for(int i = 0; i < qtdEquip; i++){
-            equipamentos[inicial + i] = equip[i];
-            qtdEq++;
-        }
+    protected boolean adicionarUmEquipamento(String equip){
+        boolean funcionou = equipamentos.add(equip);
+        return funcionou;
+    }
+    protected boolean adicionarEquipamentos(List<String> equip){
+        boolean funcionou = equipamentos.addAll(equip);
+        return funcionou;
     }
 }
