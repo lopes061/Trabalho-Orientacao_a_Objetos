@@ -1,6 +1,6 @@
 package View;
 
-//import cadastro.Usuario       (Criar uma lista de usuarios que esta classe possa verificar seus componentes e verificar se ja existe um usuario)
+//import controller.UsuarioController 
 //import javax.swing.JOptionPane;
 
 public class Login {

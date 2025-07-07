@@ -1,5 +1,6 @@
 package View;
 import javax.swing.JOptionPane;
+import controller.UsuarioController;
 
 public class Menu {
 	
@@ -16,16 +17,36 @@ public class Menu {
 					do{
 					switch (cad) {
 						case 1:
-							//CadastroNovoAluno();
-							JOptionPane.showMessageDialog(null, "Opcao Atualmente indisponivel");
+							
+							String nome = JOptionPane.showInputDialog("Digite o nome completo do Aluno: ");	
+							String email = JOptionPane.showInputDialog("Digite o e-mail do Aluno: ");
+							String Tel = JOptionPane.showInputDialog("Digite o telefone do Aluno: ");
+							String senha = JOptionPane.showInputDialog("Digite a senha do Aluno: ");
+							String matri = JOptionPane.showInputDialog("Digite a matricula do Aluno: ");
+							String curso = JOptionPane.showInputDialog("Digite o curso do Aluno: ");
+							String semes = JOptionPane.showInputDialog("Digite o semestre do Aluno: ");
+							
+							cadastrarAluno(nome, email, Tel, senha, matri, curso, semes);
 						break;
 						case 2:
-							//CadastroNovoServidor();
-							JOptionPane.showMessageDialog(null, "Opcao Atualmente indisponivel");
+							String nomePrf = JOptionPane.showInputDialog("Digite o nome completo do Professor: ");	
+							String emailPrf = JOptionPane.showInputDialog("Digite o e-mail do Professor: ");
+							String TelPrf = JOptionPane.showInputDialog("Digite o telefone do Professor: ");
+							String senhaPrf = JOptionPane.showInputDialog("Digite a senha do Professor: ");
+							String matriPrf = JOptionPane.showInputDialog("Digite a matricula do Professor: ");
+							String cursoPrf = JOptionPane.showInputDialog("Digite o curso do Professor: ");
+							String cargoPrf = JOptionPane.showInputDialog("Digite o semestre do Professor: ");
+							cadastrarProfessor(nomePrf, emailPrf, TelPrf, senhaPrf, matriPrf, cursoPrf, cargoPrf);
 						break;
 						case 3:
-							//CadastroNovoProfessor();
-							JOptionPane.showMessageDialog(null, "Opcao Atualmente indisponivel");
+							String nomeSer = JOptionPane.showInputDialog("Digite o nome completo do Servidor: ");	
+							String emailSer = JOptionPane.showInputDialog("Digite o e-mail do Servidor: ");
+							String TelSer = JOptionPane.showInputDialog("Digite o telefone do Servidor: ");
+							String senhaSer = JOptionPane.showInputDialog("Digite a senha do Servidor: ");
+							String matriSer = JOptionPane.showInputDialog("Digite a matricula do Servidor: ");
+							String funcSer = JOptionPane.showInputDialog("Digite a funcao do Servidor: ");
+							String deptoSer = JOptionPane.showInputDialog("Digite o departamento do Servidor: ");
+							cadastrarServidorADM(nomeSer, emailSer, TelSer, senhaSer, matriSer, funcSer, deptoSer)
 						break;
 						default:
 							JOptionPane.showMessageDialog(null, "Opcao invalida");
