@@ -1,6 +1,6 @@
-package projeto.entidades.Usuario;
+package projeto.model;
 
-public abstract class Usuario {
+public class Usuario {
     protected String nomeCompleto;
     protected String emailInstitucional;
     protected String telefone;
@@ -16,7 +16,9 @@ public abstract class Usuario {
         this.matricula = matricula;
     }
 
-    public abstract String getTipo();
+    public String getTipo() {
+        return "Usuario";
+    }
 
     public void exibirInformacoes() {
         System.out.println("\nNome: " + nomeCompleto);
@@ -30,4 +32,5 @@ public abstract class Usuario {
     public String getMatricula() { return matricula; }
     public String getEmailInstitucional() { return emailInstitucional; }
     public String getTelefone() { return telefone; }
+    public String getSenha() { return senha; }
 }
