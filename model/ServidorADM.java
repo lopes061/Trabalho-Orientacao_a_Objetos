@@ -1,4 +1,4 @@
-package projeto.entidades.Usuario;
+package projeto.model;
 
 public class ServidorADM extends Usuario {
     private String funcao;
@@ -11,14 +11,19 @@ public class ServidorADM extends Usuario {
         this.departamento = departamento;
     }
 
+    
     public String getTipo() {
         return "ServidorADM";
     }
 
+    
     public void exibirInformacoes() {
         super.exibirInformacoes();
         System.out.println("Tipo: Servidor Administrativo");
         System.out.println("Função: " + funcao);
         System.out.println("Departamento: " + departamento);
     }
+
+    public String getFuncao() { return funcao; }
+    public String getDepartamento() { return departamento; }
 }
