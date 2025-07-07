@@ -1,19 +1,20 @@
 package View;
 import javax.swing.JOptionPane;
 import controller.UsuarioController;
+//import controller.EspacosController;
 
 public class Menu {
 	
 	public static void menu() {
 		
 		int opcao = 0; 
-		int cad;
+		int cad, esp;
 		
 		do {
 			opcao = MenuInicial.menuOpcoes(); 
 			switch (opcao) {
 				case 1:
-					cad = CadastroUsuarioMenu.CadastroOpcoes();
+					cad = CadastroMenu.CadastroOpcoes();
 					do{
 					switch (cad) {
 						case 1:
@@ -25,7 +26,6 @@ public class Menu {
 							String matri = JOptionPane.showInputDialog("Digite a matricula do Aluno: ");
 							String curso = JOptionPane.showInputDialog("Digite o curso do Aluno: ");
 							String semes = JOptionPane.showInputDialog("Digite o semestre do Aluno: ");
-							
 							cadastrarAluno(nome, email, Tel, senha, matri, curso, semes);
 						break;
 						case 2:
@@ -48,10 +48,35 @@ public class Menu {
 							String deptoSer = JOptionPane.showInputDialog("Digite o departamento do Servidor: ");
 							cadastrarServidorADM(nomeSer, emailSer, TelSer, senhaSer, matriSer, funcSer, deptoSer);
 						break;
+						case 4:
+							esp = CadastroEspMenu.EspOpcoes();
+							do{
+								switch (esp) {
+									case 1:
+										//Cadastro de uma sala de aula
+									break;
+									case 2:
+										//Cadastro de um laboratorio
+									break;
+									case 3:
+										//Cadastro de uma sala de estudos
+									break;
+									case 0:
+									break;
+									default:
+										JOptionPane.showMessageDialog(null, "Opcao invalida");
+										esp = -1;
+									break;
+								}
+							}while(esp != 0);
+							//Função para cadastrar um espaço fisico
+						break;
+						case 0:
+						break;
 						default:
 							JOptionPane.showMessageDialog(null, "Opcao invalida");
 							cad = -1;
-							break;
+						break;
 					}
 				}while(cad != 0);
 				break;
