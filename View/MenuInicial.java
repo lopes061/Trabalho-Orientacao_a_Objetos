@@ -1,8 +1,8 @@
-package Menu;
+package View;
 
 import javax.swing.JOptionPane;
 
-public class MenuPrincipal {
+public class MenuInicial {
 
 	public static int menuOpcoes() {
 		String opcoes = "1 - Cadastrar um novo usuario \n"

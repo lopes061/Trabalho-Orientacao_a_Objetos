@@ -1,20 +1,15 @@
-package src;
+package View;
 import javax.swing.JOptionPane;
 
-import Menu.MenuPrincipal;
-import Menu.Login;
-import Menu.CadastroUsuarioMenu;
-//import Cadastro.NovoUsuario;
-
-public class Main {
+public class Menu {
 	
-	public static void main(String[] args) {
+	public static void menu() {
 		
 		int opcao = 0; 
 		int cad;
 		
 		do {
-			opcao = MenuPrincipal.menuOpcoes(); 
+			opcao = MenuInicial.menuOpcoes(); 
 			switch (opcao) {
 				case 1:
 					cad = CadastroUsuarioMenu.CadastroOpcoes();

@@ -1,4 +1,4 @@
-package Menu;
+package View;
 
 import javax.swing.JOptionPane;
 

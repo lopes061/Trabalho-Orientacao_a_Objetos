@@ -1,4 +1,4 @@
-package Menu;
+package View;
 
 //import cadastro.Usuario       (Criar uma lista de usuarios que esta classe possa verificar seus componentes e verificar se ja existe um usuario)
 //import javax.swing.JOptionPane;
