@@ -46,7 +46,7 @@ public class Menu {
 							String matriSer = JOptionPane.showInputDialog("Digite a matricula do Servidor: ");
 							String funcSer = JOptionPane.showInputDialog("Digite a funcao do Servidor: ");
 							String deptoSer = JOptionPane.showInputDialog("Digite o departamento do Servidor: ");
-							cadastrarServidorADM(nomeSer, emailSer, TelSer, senhaSer, matriSer, funcSer, deptoSer)
+							cadastrarServidorADM(nomeSer, emailSer, TelSer, senhaSer, matriSer, funcSer, deptoSer);
 						break;
 						default:
 							JOptionPane.showMessageDialog(null, "Opcao invalida");
