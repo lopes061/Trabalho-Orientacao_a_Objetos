@@ -1,4 +1,4 @@
-package projeto.entidades.Usuario;
+package projeto.model;
 
 public class Aluno extends Usuario {
     private String curso;
@@ -11,16 +11,18 @@ public class Aluno extends Usuario {
         this.semestre = semestre;
     }
 
-    @Override
+    
     public String getTipo() {
         return "Aluno";
     }
 
-    @Override
     public void exibirInformacoes() {
         super.exibirInformacoes();
         System.out.println("Tipo: Aluno");
         System.out.println("Curso: " + curso);
         System.out.println("Semestre: " + semestre);
     }
+
+    public String getCurso() { return curso; }
+    public int getSemestre() { return semestre; }
 }
