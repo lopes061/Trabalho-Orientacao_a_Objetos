@@ -1,11 +1,12 @@
-package servicos;
+package menus;
 
 import javax.swing.JOptionPane;
 
 import elementos.Aluno;
 import elementos.Usuario;
+import servicos.CadastroUsuario;
 
-public class MenuAluno {
+public class MenuAluno extends MenuUsuarios{
     
 	public static Aluno dadosNovoAluno() {
 		String nome = lerNome();
@@ -47,7 +48,7 @@ public class MenuAluno {
 	}
 
 
-	public static void menuAluno(CadastroUsuario cadAluno) {
+	public void menu(CadastroUsuario cadAluno) {
 		String txt = "Informe a opção desejada \n"
 				+ "1 - Cadastrar aluno\n"
 				+ "2 - Pesquisar aluno\n"
