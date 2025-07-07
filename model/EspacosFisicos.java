@@ -1,10 +1,15 @@
 package model;
 
+import java.util.Date;
+import java.util.Calendar;
+
 public class EspacosFisicos{
     private String nome, localizacao;
     private int capacidade;
     private String[] equipamentos = new String[1000];
     private int qtdEq = 0;
+    private Date[] hOcupados = new Date[1000];
+    private int horariosUtilizados = 0;
     
     public EspacosFisicos(){}
     public EspacosFisicos(String nome, String localizacao, int capacidade)
