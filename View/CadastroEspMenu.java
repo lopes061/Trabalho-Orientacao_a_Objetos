@@ -39,10 +39,15 @@ public class CadastroEspMenu {
 
 	public static List<String> lerEquipamentos(){
 		List<String> lista = new ArrayList<>();
+		String equipamento;
 		int saida = 1;
 
 		do{
-			String equipamento = JOptionPane.showInputDialog("Digite o nome da sala: ");
+			if (saida == 1) {
+				equipamento = JOptionPane.showInputDialog("Digite os equipamento contidos na sala(continue digitando, se quiser parar digite apenas 0 e de enter.): ");
+			}else{
+				equipamento = JOptionPane.showInputDialog("Digite o proximo equipamento contido na sala(Pare digitando apenas 0 na caixa de texto): ");
+			}
 
 			if (Integer.parseInt(equipamento) == 0) {
 				saida = 0;
