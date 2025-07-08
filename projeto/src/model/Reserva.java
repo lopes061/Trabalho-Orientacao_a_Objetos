@@ -29,18 +29,17 @@ public class Reserva {
     }
 
 
-    // Getters
-    protected UUID getId(){ return id; }
-    protected EspacosFisicos getEspaco(){ return espaco; }
-    protected Usuario getUsuario(){ return usuario; }
-    protected LocalDateTime[] getInicioFim(){
+    // Getters - AGORA PUBLICOS!!
+    public EspacosFisicos getEspaco(){ return espaco; }
+    public Usuario getUsuario(){ return usuario; }
+    public LocalDateTime[] getInicioFim(){
         LocalDateTime[] horario = new LocalDateTime[2];
         horario[0] = inicio;
         horario[1] = fim;
         return horario;
     }
-    protected String getHorario(){ return inicio.format(dataPadrao) + " das " + inicio.format(horaPadrao) + " às " + fim.format(horaPadrao); }
-    protected String getStatus(){ return status; }
+    public String getHorario(){ return inicio.format(dataPadrao) + " das " + inicio.format(horaPadrao) + " às " + fim.format(horaPadrao); }
+    public String getStatus(){ return status; }
 
 
     // Setters
