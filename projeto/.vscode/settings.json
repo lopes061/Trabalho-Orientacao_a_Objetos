@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
@@ -6,12 +5,3 @@
         "lib/**/*.jar"
     ]
 }
-=======
-{
-    "java.project.sourcePaths": ["src"],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar"
-    ]
-}
->>>>>>> model
