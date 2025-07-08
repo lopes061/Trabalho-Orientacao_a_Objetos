@@ -4,9 +4,6 @@ import java.util.UUID;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-import model.EspacosFisicos;
-import model.Usuario;
-
 public class Reserva {
 
     private final UUID id;
@@ -33,6 +30,7 @@ public class Reserva {
 
 
     // Getters
+    protected UUID getId(){ return id; }
     protected EspacosFisicos getEspaco(){ return espaco; }
     protected Usuario getUsuario(){ return usuario; }
     protected LocalDateTime[] getInicioFim(){
