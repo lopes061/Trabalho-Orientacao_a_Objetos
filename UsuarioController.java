@@ -11,18 +11,29 @@ public class UsuarioController {
         this.usuarios = new ArrayList<>();
     }
 
+    private void verificarMatriculaExistente(String matricula) throws MatriculaExistenteException {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getMatricula().equals(matricula)) {
+                throw new MatriculaExistenteException("Matrícula " + matricula + " já cadastrada.");
+            }
+        }
+    }
+
     public void cadastrarAluno(String nomeCompleto, String email, String telefone, 
-                             String senha, String matricula, String curso, int semestre) {
+                             String senha, String matricula, String curso, int semestre) throws MatriculaExistenteException {
+        verificarMatriculaExistente(matricula);
         usuarios.add(new Aluno(nomeCompleto, email, telefone, senha, matricula, curso, semestre));
     }
 
     public void cadastrarProfessor(String nomeCompleto, String email, String telefone, 
-                                 String senha, String matricula, String curso, String cargoAcademico) {
+                                 String senha, String matricula, String curso, String cargoAcademico) throws MatriculaExistenteException {
+        verificarMatriculaExistente(matricula);
         usuarios.add(new Professor(nomeCompleto, email, telefone, senha, matricula, curso, cargoAcademico));
     }
 
     public void cadastrarServidorADM(String nomeCompleto, String email, String telefone, 
-                                   String senha, String matricula, String funcao, String departamento) {
+                                   String senha, String matricula, String funcao, String departamento) throws MatriculaExistenteException {
+        verificarMatriculaExistente(matricula);
         usuarios.add(new ServidorADM(nomeCompleto, email, telefone, senha, matricula, funcao, departamento));
     }
 
@@ -42,8 +53,7 @@ public class UsuarioController {
         }
     }
 
-    // Método para obter lista de usuários 
     public List<Usuario> getUsuarios() {
-        return new ArrayList<>(usuarios); // Retorna uma cópia (nao mod o original)
+        return new ArrayList<>(usuarios);
     }
 }
