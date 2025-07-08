@@ -16,4 +16,45 @@ public class CadastroMenu {
 	
 		return opcao;
 	}
+
+	public static String lerNome(){
+		return JOptionPane.showInputDialog("Digite o nome completo:");
+	}
+
+	public static String lerEmail(){
+		return JOptionPane.showInputDialog("Digite o e-mail: ");
+	}
+
+	public static String lerTelefone(){
+		return JOptionPane.showInputDialog("Digite o e-mail: ");
+	}
+
+	public static String lerSenha(){
+		return JOptionPane.showInputDialog("Digite a senha: ");
+	}
+
+	public static String lerMatricula(){
+		return JOptionPane.showInputDialog("Digite a matricula: ");
+	}
+
+	public static String lerCurso(){
+		return JOptionPane.showInputDialog("Digite o curso: ");
+	}
+
+	public static String lerSemestre(){
+		return JOptionPane.showInputDialog("Digite o semestre: ");
+	}
+
+	public static String lerCargo(){
+		return JOptionPane.showInputDialog("Digite o cargo do professor: ");
+	}
+
+	public static String lerFuncao(){
+		return JOptionPane.showInputDialog("Digite a funcao do servidor publico: ");
+	}
+
+	public static String lerDepartamento(){
+		return JOptionPane.showInputDialog("Digite o departamento do servidor publico: ");
+	}
+
 }
