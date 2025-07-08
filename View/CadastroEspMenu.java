@@ -53,6 +53,7 @@ public class CadastroEspMenu {
 				saida = 0;
 			}else{
 				lista.add(equipamento);
+				saida++;
 			}
 		}while(saida != 0);
 
