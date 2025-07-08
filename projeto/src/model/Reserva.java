@@ -2,6 +2,7 @@ package model;
 
 import java.util.UUID;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 import model.EspacosFisicos;
 import model.Usuario;
@@ -14,6 +15,9 @@ public class Reserva {
     private Usuario usuario;
     private LocalDateTime inicio, fim;
     private String status;
+
+    private static DateTimeFormatter dataPadrao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static DateTimeFormatter horaPadrao = DateTimeFormatter.ofPattern("HH:mm");
 
 
     // Construtores
@@ -31,7 +35,13 @@ public class Reserva {
     // Getters
     protected EspacosFisicos getEspaco(){ return espaco; }
     protected Usuario getUsuario(){ return usuario; }
-    //protected LocalDateTime getHorario(){}
+    protected LocalDateTime[] getInicioFim(){
+        LocalDateTime[] horario = new LocalDateTime[2];
+        horario[0] = inicio;
+        horario[1] = fim;
+        return horario;
+    }
+    protected String getHorario(){ return inicio.format(dataPadrao) + " das " + inicio.format(horaPadrao) + " às " + fim.format(horaPadrao); }
     protected String getStatus(){ return status; }
 
 
