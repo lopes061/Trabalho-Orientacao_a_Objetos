@@ -1,10 +1,9 @@
-package projeto.controller;
+package controller;
 
-import projeto.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioController {
+public class BancoDeDados {
     private List<Usuario> usuarios;
 
     public UsuarioController() {
