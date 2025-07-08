@@ -2,6 +2,9 @@ package View;
 
 import javax.swing.JOptionPane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CadastroEspMenu {
     public static String lerTipoSala() {
 		int i;
@@ -34,4 +37,20 @@ public class CadastroEspMenu {
 		return resp;
 	}
 
+	public static List<String> lerEquipamentos(){
+		List<String> lista = new ArrayList<>();
+		int saida = 1;
+
+		do{
+			String equipamento = JOptionPane.showInputDialog("Digite o nome da sala: ");
+
+			if (Integer.parseInt(equipamento) == 0) {
+				saida = 0;
+			}else{
+				lista.add(equipamento);
+			}
+		}while(saida != 0);
+
+		return lista;
+	}
 }
