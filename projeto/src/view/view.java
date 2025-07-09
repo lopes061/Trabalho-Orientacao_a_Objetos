@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
@@ -95,6 +95,7 @@ public class view {
                       + "Escolha uma das seguintes opcoes:\n"
 				      + "1 - Cadastro de um espaço fisico \n"
                       + "2 - Agendamento de um espaço fisico \n"
+					  + "3 - Exportar dados(.txt)\n"
 				      + "0 - Sair";
 
 		String strOpcao = JOptionPane.showInputDialog(opcoes);
@@ -109,7 +110,6 @@ public class view {
 			return -1;
 		}
 	}
-
 	public static int menuAgendamento(){
 		String opcoes = "Informe o tipo de sala desejada \n"
 				      + "1 - Agendar uma sala de aula \n"
@@ -194,6 +194,9 @@ public class view {
 
 	public static String lerNomeSala(){
 		return JOptionPane.showInputDialog("Digite o nome da sala: ");
+	}
+	public static String lerLocalSala(){
+		return JOptionPane.showInputDialog("Digite a localização da sala: ");
 	}
 
 	public static int lerCapacidadeSala(){

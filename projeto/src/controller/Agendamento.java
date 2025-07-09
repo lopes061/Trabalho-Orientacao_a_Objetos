@@ -4,7 +4,7 @@ import model.EspacosFisicos;
 import java.util.List;
 import java.util.UUID;
 
-import View.view;
+import view.view;
 
 import java.util.HashMap;
 import java.util.Map;

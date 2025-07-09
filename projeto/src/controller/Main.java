@@ -1,18 +1,25 @@
 package controller;
 
 import javax.swing.JOptionPane;
+import java.util.List;
 
+import model.CadastroExceptions.MatriculaExistenteException;
+import model.CadastroExceptions.MatriculaInvalidaException;
+import model.CadastroExceptions.SemestreInvalidoException;
+import model.CadastroExceptions.TelefoneInvalidoException;
+import model.Usuario;
 import view.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception, Exception, Exception, Exception {
         int opcao = view.menuInicial();
 
         while (opcao != 0){
-            switch(opcao) {
+            String nome, matricula, senha;
+            switch(opcao){
                 case 1:
                     // Cadastro usuario
-                    String nome, email, telefone, senha, matricula, curso, cargo, funcao, departamento;
+                    String email, telefone, curso, cargo, funcao, departamento;
                     int semestre;
                     opcao = view.cadastroOpcoes();
                     while(opcao != 0){
@@ -36,7 +43,7 @@ public class Main {
                                 // Professor
                                 curso = view.lerCurso();
                                 cargo = view.lerCargo();
-                                BancoDeDados.cadastrarProfessor(nome, email, telefone, senha, matricula, cursoP, cargo);
+                                BancoDeDados.cadastrarProfessor(nome, email, telefone, senha, matricula, curso, cargo);
                                 break;
                             case 3:
                                 // Servidor ADM
@@ -45,13 +52,46 @@ public class Main {
                                 BancoDeDados.cadastrarServidorADM(nome, email, telefone, senha, matricula, funcao, departamento);
                                 break;
                         }
+                        opcao = view.cadastroOpcoes();
                     }
-
                     break;
                 case 2:
                     // Login
-                case 0:
-                    break;
+                    matricula = view.lerMatricula();
+                    senha = view.lerSenha();
+                    Usuario u = BancoDeDados.getUsuarioMatricula(matricula);
+                    if(u != null && (u.getSenha() != senha)){
+                        JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!\nTente novamente!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{
+                        opcao = view.loginSucesso();
+                        String tipo, localizacao;
+                        int capacidade;
+                        List<String> equipamento;
+                        while(opcao != 0){
+                            switch (opcao) {
+                                case 1:
+                                    // Cadastro de espaço físico
+                                    tipo = view.lerTipoSala();
+                                    nome = view.lerNomeSala();
+                                    localizacao = view.lerLocalSala();
+                                    capacidade = view.lerCapacidadeSala();
+                                    equipamento = view.lerEquipamentos();
+                                    BancoDeDados.cadastrarEspaco(nome, localizacao, tipo, capacidade, equipamento);
+                                    break;
+                                case 2:
+                                    // Agendamento
+                                    break;
+                                case 3:
+                                    // Exportar dados
+                                    break;
+                                default:
+                                    opcaoInv();
+                                    break;
+                            }
+                            opcao = view.loginSucesso();
+                        }
+                    }
                 default:
                     opcaoInv();
                     break;
