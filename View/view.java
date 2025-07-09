@@ -1,9 +1,11 @@
 package View;
 
 import javax.swing.JOptionPane;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import controller.BancoDeDados;
 
 public class view {
 
@@ -22,7 +24,7 @@ public class view {
 	}
 //----------------------------------------------------------------------------------------------------------------------------------------------
 //Todas as funções para Cadastro de usuario novo
-	public static int CadastroOpcoes() {
+	public static int cadastroOpcoes() {
 		String opcoes = "Informe a opção desejada \n"
 				      + "1 - Cadastro de um novo aluno \n"
                       + "2 - Cadastro de um novo professor \n"
@@ -77,7 +79,7 @@ public class view {
 
 //----------------------------------------------------------------------------------------------------------------------------------------------
 //Menu para login
-	public static int LoginSucesso() {
+	public static int loginSucesso() {
 		String opcoes = "Login bem sucedido.\n" 
                       + "Escolha uma das seguintes opcoes:\n"
 				      + "1 - Cadastro de um espaço fisico \n"
@@ -88,6 +90,56 @@ public class view {
 		int opcao = Integer.parseInt(strOpcao);
 	
 		return opcao;
+	}
+
+//----------------------------------------------------------------------------------------------------------------------------------------------
+//Agendamento de espaços fisicos
+
+	public static int menuAgendamento(){
+		String opcoes = "Informe o tipo de sala desejada \n"
+				      + "1 - Agendar uma sala de aula \n"
+                      + "2 - Agendar um laboratorio \n"
+                      + "3 - Agendar uma sala de estudos \n"
+				      + "0 - Sair";
+	
+		String strOpcao = JOptionPane.showInputDialog(opcoes);
+		int opcao = Integer.parseInt(strOpcao);
+
+		return opcao;
+	}
+
+	public static int listarEspacos(String tipo){
+        String opcao = BancoDeDados.getEspacoPorTipo(tipo);
+        String input = JOptionPane.showInputDialog(null, opcao);
+        int i = Integer.parseInt(input);
+        return i;
+    }
+
+	public static int informarEspacos(String nome){
+		int i = JOptionPane.showConfirmDialog(null, BancoDeDados.getEspaco(nome), "Confirmacao de espaco selecionado", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+		return i;
+	}
+
+	public static int PorSemana_HorariosDoEspaco(UUID id){
+		String opcao = EspacoController.getHorariosSemana(id);
+        String input = JOptionPane.showInputDialog(null, opcao);
+        int i = Integer.parseInt(input);
+        return i;
+	}
+
+	public static int PorDia_HorariosDoEspaco(UUID id){
+		String opcao = EspacoController.getHorariosDia(id);
+        String input = JOptionPane.showInputDialog(null, opcao);
+        int i = Integer.parseInt(input);
+        return i;
+	}
+
+	public static void infosDaReserva(){
+		JOptionPane.showMessageDialog(null, ReservaController.exibirInfo(UUID id));
+	}	
+
+	public static void confirmacaoAgendamento(){
+		JOptionPane.showMessageDialog(null, "Agendamento de espaco bem sucedida.");
 	}
 
 //----------------------------------------------------------------------------------------------------------------------------------------------
