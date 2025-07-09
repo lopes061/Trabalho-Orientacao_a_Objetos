@@ -198,6 +198,16 @@ public class BancoDeDados {
         return null; 
     }
 
+    public static Usuario fazerLogin(String matricula, String senha){
+        for (Usuario usuario : usuarios) {
+            if (usuario.getMatricula().equals(matricula)) {
+                if(usuario.getSenha().equals(senha)){
+                    return usuario;
+                }
+            }
+        }
+        return null;
+    }
 
     public static List<Reserva> getReservasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
         List<Reserva> reservasNoPeriodo = new ArrayList<>();

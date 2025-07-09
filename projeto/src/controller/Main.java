@@ -81,15 +81,14 @@ public class Main {
                 case 2:
 
                     // Login
-                    String matricula = view.lerMatricula();
-                    String senha = view.lerSenha();
+                    matricula = view.lerMatricula();
+                    senha = view.lerSenha();
 
                     Usuario u = BancoDeDados.fazerLogin(matricula, senha);
 
                     if(u == null){
                         JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!\nTente novamente!", "Erro!", JOptionPane.ERROR_MESSAGE);
                     }
-
                     else{
                         opcao = view.loginSucesso();
 
