@@ -81,6 +81,8 @@ public class Main {
                                 case 3:
                                     // Exportar dados
                                     break;
+                                case 0:
+                                    break;
                                 default:
                                     opcaoInv();
                                     break;
@@ -88,6 +90,8 @@ public class Main {
                             opcao = view.loginSucesso();
                         }
                     }
+                case 0:
+                    break;
                 default:
                     opcaoInv();
                     break;

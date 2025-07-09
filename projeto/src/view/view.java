@@ -88,7 +88,7 @@ public class view {
 
 	// Pede o semestre (apenas para alunos)
 	public static int lerSemestre(){
-		String semestreStr = JOptionPane.showInputDialog("Em qual semestre você está?");
+		String semestreStr = JOptionPane.showInputDialog("Em qual semestre do ano você entrou?\n(1 ou 2)");
 		if (semestreStr == null || semestreStr.trim().isEmpty()) {
             return -1;
         }
