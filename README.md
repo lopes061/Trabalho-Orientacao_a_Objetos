@@ -6,7 +6,7 @@
 * Prof. André Luiz Peron Martins Lanna
 * Componentes do grupo:
 | Matrícula | Nome                             |
-|:---------:|:---------------------------------|
+|-----------|----------------------------------|
 | 231011041 | Alyssa Werneck Bennett Ferreira  |
 | 232000721 | Arthur Feitosa Gonçalves Lima    |
 | 222006679 | Eduardo Henrique Coutinho Gurjão |
