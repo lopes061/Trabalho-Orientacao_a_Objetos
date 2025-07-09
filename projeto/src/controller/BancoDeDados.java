@@ -115,7 +115,6 @@ public class BancoDeDados {
         }
         return null;
     }
-
     public static EspacosFisicos getEspaco(String nome){
         for (EspacosFisicos espaco : espacos) {
             if (espaco.getNome().equalsIgnoreCase(nome)) {
@@ -213,4 +212,5 @@ public class BancoDeDados {
         }
         return reservasNoPeriodo;
     }
-}
+    }
+
