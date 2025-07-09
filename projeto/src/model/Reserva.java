@@ -13,8 +13,8 @@ public class Reserva {
     private LocalDateTime inicio, fim;
     private String status;
 
-    private static DateTimeFormatter dataPadrao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static DateTimeFormatter horaPadrao = DateTimeFormatter.ofPattern("HH:mm");
+    public static DateTimeFormatter dataPadrao = DateTimeFormatter.ofPattern("dd/MM");
+    public static DateTimeFormatter horaPadrao = DateTimeFormatter.ofPattern("HH:mm");
 
 
     // Construtores
