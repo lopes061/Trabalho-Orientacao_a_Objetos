@@ -59,25 +59,27 @@ public class view {
 		return JOptionPane.showInputDialog("Digite a sua matricula: ");
 	}
 
+	
 	public static String lerCurso(){
-		return JOptionPane.showInputDialog("Digite o seu cursocurso: ");
-	}
+		return JOptionPane.showInputDialog("Digite o seu curso: ");
+	} // Aluno e Professor
 
-	public static String lerSemestre(){
-		return JOptionPane.showInputDialog("Digite o seu semestre atual: ");
-	}
+	public static int lerSemestre(){
+		String sem = JOptionPane.showInputDialog("Digite o seu semestre de entrada:\n1 - Primeiro semestre\n2 - Segundo semestre");
+		return Integer.parseInt(sem);
+	} // Aluno
 
 	public static String lerCargo(){
 		return JOptionPane.showInputDialog("Digite o seu cargo: ");
-	}
+	} // Professor
 
 	public static String lerFuncao(){
 		return JOptionPane.showInputDialog("Digite a sua funcao: ");
-	}
+	} // Adm
 
 	public static String lerDepartamento(){
 		return JOptionPane.showInputDialog("Digite o seu departamento: ");
-	}
+	} // Adm
 
 //----------------------------------------------------------------------------------------------------------------------------------------------
 //Menu para login
