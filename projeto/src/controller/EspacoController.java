@@ -80,8 +80,7 @@ public abstract class EspacoController {
         EspacosFisicos espaco = BancoDeDados.getEspacoPorId(id);
         List<Reserva> ocupados = BancoDeDados.getReserva(espaco, dia);
 
-        // --- 2. PRÉ-PROCESSAMENTO DOS DADOS (SIMPLIFICADO) ---
-        // Cria um conjunto (Set) apenas com as horas que estão ocupadas.
+        // Conjunto apenas com as horas que estão ocupadas.
         Set<Integer> slotsOcupados = new HashSet<>();
 
         for (Reserva reserva : ocupados) {
@@ -94,7 +93,7 @@ public abstract class EspacoController {
             }
         }
 
-        // --- 3. MONTAGEM DA STRING DA TABELA ---
+        // --- STRING DA TABELA ---
         StringBuilder tabela = new StringBuilder();
 
         // Título
@@ -109,7 +108,7 @@ public abstract class EspacoController {
         for (int hora = HORA_INICIO_DIA; hora <= HORA_FIM_DIA; hora++) {
             LocalTime horaAtual = LocalTime.of(hora, 0);
 
-            // A consulta agora é um simples 'contains' no Set, muito rápido.
+            // Consulta
             boolean ocupado = slotsOcupados.contains(hora);
             String status = ocupado ? "Ocupado" : "Livre";
             
@@ -118,5 +117,19 @@ public abstract class EspacoController {
         tabela.append("-".repeat(23)).append("\n");
 
         return tabela.toString();
+    }
+
+    public static String getInfoCadastro(EspacosFisicos e){
+        String infos = "Cadastro de " + e.getTipo() + "\n";
+        infos += "Nome: " + e.getNome() + "\n";
+        infos += "Localizada em " + e.getLocal() + "\n";
+        infos += "Capacidade máxima: " + e.getCapacidade() +"\n";
+        infos += "Contém: ";
+        List<String> equip = e.getEquip();
+        for(String equipamento : equip){
+            infos += equipamento + ", ";
+        }
+        infos += "\b\b\n\nEspaço cadastrado com sucesso!";
+        return infos;
     }
 }

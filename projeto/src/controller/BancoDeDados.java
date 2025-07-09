@@ -77,10 +77,12 @@ public class BancoDeDados {
         usuarios.add(new ServidorADM(nomeCompleto, email, telefone, senha, matricula, funcao, departamento));
     }
 
-    public static void cadastrarEspaco(String nome, String localizacao, String tipo, int capacidade, List<String> equipamentos) throws EspacoExistenteException {
+    public static EspacosFisicos cadastrarEspaco(String nome, String localizacao, String tipo, int capacidade, List<String> equipamentos) throws EspacoExistenteException {
         verificarEspacoExiste(nome, localizacao);
-        espacos.add(new EspacosFisicos(nome, localizacao, tipo, capacidade, equipamentos));
-        System.out.println(tipo + " cadastrado com sucesso!");
+        EspacosFisicos e = new EspacosFisicos(nome, localizacao, tipo, capacidade, equipamentos);
+        espacos.add(e);
+        // System.out.println(tipo + " cadastrado com sucesso!");
+        return e;
     }
 
     public static void adicionarReserva(Reserva reserva){
