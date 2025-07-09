@@ -1,9 +1,11 @@
 package controller;
 
 import model.EspacosFisicos;
-import projeto.View.view;
 import java.util.List;
 import java.util.UUID;
+
+import View.view;
+
 import java.util.HashMap;
 import java.util.Map;
 
