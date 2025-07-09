@@ -47,5 +47,5 @@ public class Reserva {
         this.inicio = inicio;
         this.fim = fim;
     }
-    protected void setStatus(String st){ status = st;}
+    public void setStatus(String st){ status = st;}
 }
