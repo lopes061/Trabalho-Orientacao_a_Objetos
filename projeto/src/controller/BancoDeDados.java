@@ -20,14 +20,14 @@ public class BancoDeDados {
     private static final List<Reserva> reservas = new ArrayList<>();
 
 
-    private void verificarMatriculaExistente(String matricula) throws MatriculaExistenteException {
+    private static void verificarMatriculaExistente(String matricula) throws MatriculaExistenteException {
         for (Usuario usuario : usuarios) {
             if (usuario.getMatricula().equals(matricula)) {
                 throw new MatriculaExistenteException("Matrícula " + matricula + " já cadastrada.");
             }
         }
     }
-    private void verificarEspacoExiste(String nome, String localizacao) throws EspacoExistenteException {
+    private static void verificarEspacoExiste(String nome, String localizacao) throws EspacoExistenteException {
         for (EspacosFisicos espaco : espacos) {
             if (espaco.getNome().equalsIgnoreCase(nome) && espaco.getLocal().equalsIgnoreCase(localizacao)) {
                 throw new EspacoExistenteException("Espaço '" + nome + "' em '" + localizacao + "' já existe.");
@@ -35,19 +35,19 @@ public class BancoDeDados {
         }
     }
 
-    private void validarTelefone(String telefone) throws TelefoneInvalidoException {
+    private static void validarTelefone(String telefone) throws TelefoneInvalidoException {
         if (!telefone.matches("\\d+")) {
             throw new TelefoneInvalidoException("Telefone deve conter apenas números.");
         }
     }
 
-    private void validarMatricula(String matricula) throws MatriculaInvalidaException {
+    private static void validarMatricula(String matricula) throws MatriculaInvalidaException {
         if (!matricula.matches("\\d+")) {
             throw new MatriculaInvalidaException("Matrícula deve conter apenas números.");
         }
     }
 
-    public void cadastrarAluno(String nomeCompleto, String email, String telefone,
+    public static void cadastrarAluno(String nomeCompleto, String email, String telefone,
                              String senha, String matricula, String curso, int semestre)
                              throws MatriculaExistenteException, TelefoneInvalidoException, MatriculaInvalidaException, SemestreInvalidoException {
         validarTelefone(telefone);
@@ -59,7 +59,7 @@ public class BancoDeDados {
         usuarios.add(new Aluno(nomeCompleto, email, telefone, senha, matricula, curso, semestre));
     }
 
-    public void cadastrarProfessor(String nomeCompleto, String email, String telefone,
+    public static void cadastrarProfessor(String nomeCompleto, String email, String telefone,
                                  String senha, String matricula, String curso, String cargoAcademico)
                                  throws MatriculaExistenteException, TelefoneInvalidoException, MatriculaInvalidaException {
         validarTelefone(telefone);
@@ -68,7 +68,7 @@ public class BancoDeDados {
         usuarios.add(new Professor(nomeCompleto, email, telefone, senha, matricula, curso, cargoAcademico));
     }
 
-    public void cadastrarServidorADM(String nomeCompleto, String email, String telefone,
+    public static void cadastrarServidorADM(String nomeCompleto, String email, String telefone,
                                    String senha, String matricula, String funcao, String departamento)
                                    throws MatriculaExistenteException, TelefoneInvalidoException, MatriculaInvalidaException {
         validarTelefone(telefone);
@@ -77,29 +77,29 @@ public class BancoDeDados {
         usuarios.add(new ServidorADM(nomeCompleto, email, telefone, senha, matricula, funcao, departamento));
     }
 
-    public void cadastrarEspaco(String nome, String localizacao, String tipo, int capacidade, List<String> equipamentos) throws EspacoExistenteException {
+    public static void cadastrarEspaco(String nome, String localizacao, String tipo, int capacidade, List<String> equipamentos) throws EspacoExistenteException {
         verificarEspacoExiste(nome, localizacao);
         espacos.add(new EspacosFisicos(nome, localizacao, tipo, capacidade, equipamentos));
         System.out.println(tipo + " cadastrado com sucesso!");
     }
 
-    public void adicionarReserva(Reserva reserva){
+    public static void adicionarReserva(Reserva reserva){
         reservas.add(reserva);
     }
 
-    public List<Usuario> getTodosUsuarios() {
+    public static List<Usuario> getTodosUsuarios() {
         return new ArrayList<>(usuarios);
     }
-    public List<EspacosFisicos> getTodosEspacos(){
+    public static List<EspacosFisicos> getTodosEspacos(){
         return new ArrayList<>(espacos);
     }
 
-    public List<Reserva> getTodasReservas(){
+    public static List<Reserva> getTodasReservas(){
         return new ArrayList<>(reservas);
     }
 
 
-    public Usuario getUsuarioEmail(String email){
+    public static Usuario getUsuarioEmail(String email){
         for (Usuario usuario : usuarios) {
             if (usuario.getEmailInstitucional().equalsIgnoreCase(email)) {
                 return usuario;
@@ -107,7 +107,7 @@ public class BancoDeDados {
         }
         return null;
     }
-    public Usuario getUsuarioMatricula(String mat){
+    public static Usuario getUsuarioMatricula(String mat){
         for (Usuario usuario : usuarios) {
             if (usuario.getMatricula().equals(mat)) {
                 return usuario;
@@ -116,7 +116,7 @@ public class BancoDeDados {
         return null;
     }
 
-    public EspacosFisicos getEspaco(String nome){
+    public static EspacosFisicos getEspaco(String nome){
         for (EspacosFisicos espaco : espacos) {
             if (espaco.getNome().equalsIgnoreCase(nome)) {
                 return espaco;
@@ -125,7 +125,7 @@ public class BancoDeDados {
         return null;
     }
 
-    public EspacosFisicos getEspacoPorId(UUID id) {
+    public static EspacosFisicos getEspacoPorId(UUID id) {
         for (EspacosFisicos espaco : espacos) {
             if (espaco.getId().equals(id)) {
                 return espaco;
@@ -134,7 +134,7 @@ public class BancoDeDados {
         return null;
     }
 
-    public List<EspacosFisicos> getEspacosPorCapacidadeMinima(int capacidade) {
+    public static List<EspacosFisicos> getEspacosPorCapacidadeMinima(int capacidade) {
         List<EspacosFisicos> espacosAtendendoCapacidade = new ArrayList<>();
         for (EspacosFisicos espaco : espacos) {
             if (espaco.getCapacidade() >= capacidade) {
@@ -144,7 +144,7 @@ public class BancoDeDados {
         return espacosAtendendoCapacidade;
     }
 
-    public List<EspacosFisicos> getEspacoPorTipo(String tipo) {
+    public static List<EspacosFisicos> getEspacoPorTipo(String tipo) {
         List<EspacosFisicos> espacosDoTipo = new ArrayList<>();
         for (EspacosFisicos espaco : espacos) {
             if (espaco.getTipo().equalsIgnoreCase(tipo)) {
@@ -154,7 +154,7 @@ public class BancoDeDados {
         return espacosDoTipo;
     }
 
-    public List<Reserva> getReserva(EspacosFisicos e, LocalDate inicio, LocalDate fim) {
+    public static List<Reserva> getReserva(EspacosFisicos e, LocalDate inicio, LocalDate fim) {
         List<Reserva> reservasFiltradas = new ArrayList<>();
 
         LocalDateTime inicioPeriodo = inicio.atStartOfDay();
@@ -176,7 +176,7 @@ public class BancoDeDados {
     }
 
     
-    public List<Reserva> getReserva(EspacosFisicos e, LocalDate dia) {
+    public static List<Reserva> getReserva(EspacosFisicos e, LocalDate dia) {
         List<Reserva> reservasFiltradas = new ArrayList<>();
         for (Reserva reserva : reservas) {
            
@@ -198,7 +198,7 @@ public class BancoDeDados {
     }
 
 
-    public List<Reserva> getReservasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
+    public static List<Reserva> getReservasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
         List<Reserva> reservasNoPeriodo = new ArrayList<>();
         LocalDateTime inicioPeriodo = dataInicial.atStartOfDay();
         LocalDateTime fimPeriodo = dataFinal.atTime(23, 59, 59);
