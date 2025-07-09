@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
