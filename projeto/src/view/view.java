@@ -1,11 +1,13 @@
 package view;
 
 import javax.swing.JOptionPane;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import controller.BancoDeDados;
+import controller.*;
 
 public class view {
 
@@ -108,12 +110,12 @@ public class view {
 		return opcao;
 	}
 
-	public static int listarEspacos(String tipo){
-        String opcao = BancoDeDados.getEspacoPorTipo(tipo);
-        String input = JOptionPane.showInputDialog(null, opcao);
-        int i = Integer.parseInt(input);
-        return i;
-    }
+	//public static int listarEspacos(String tipo){
+        //String opcao = BancoDeDados.getEspacoPorTipo(tipo);
+        //String input = JOptionPane.showInputDialog(null, opcao);
+        //int i = Integer.parseInt(input);
+        //return i;
+    //}
 
 	public static int informarEspacos(String nome){
 		int i = JOptionPane.showConfirmDialog(null, BancoDeDados.getEspaco(nome), "Confirmacao de espaco selecionado", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -127,15 +129,15 @@ public class view {
         return i;
 	}
 
-	public static int PorDia_HorariosDoEspaco(UUID id){
-		String opcao = EspacoController.getHorariosDia(id);
+	public static int PorDia_HorariosDoEspaco(UUID id, LocalDate dia){
+		String opcao = EspacoController.getHorariosDia(id, dia);
         String input = JOptionPane.showInputDialog(null, opcao);
         int i = Integer.parseInt(input);
         return i;
 	}
 
-	public static void infosDaReserva(){
-		JOptionPane.showMessageDialog(null, ReservaController.exibirInfo(UUID id));
+	public static void infosDaReserva(UUID id){
+		JOptionPane.showMessageDialog(null, ReservaController.exibirInfo(id));
 	}	
 
 	public static void confirmacaoAgendamento(){
