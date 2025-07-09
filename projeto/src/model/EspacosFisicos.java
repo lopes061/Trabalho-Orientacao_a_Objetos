@@ -1,4 +1,4 @@
-    package model;
+package model;
 
     import java.util.List;
     import java.util.UUID;
@@ -23,7 +23,7 @@
             this.equipamentos = equipamentos;
         }
 
-        // Getters publicos
+        // Getters - AGORA PUBLICOS
         public UUID getId(){ return id; }
         public String getNome(){ return nome; }
         public String getLocal(){ return localizacao; }
@@ -55,4 +55,4 @@
             boolean funcionou = equipamentos.addAll(equip);
             return funcionou;
         }
-    }   
+    }

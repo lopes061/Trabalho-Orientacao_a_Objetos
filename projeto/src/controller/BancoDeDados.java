@@ -1,9 +1,17 @@
 package controller;
 
-import model.*; 
+import model.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import model.CadastroExceptions.TelefoneInvalidoException;
+import model.CadastroExceptions.MatriculaInvalidaException;
+import model.CadastroExceptions.SemestreInvalidoException;
+import model.CadastroExceptions.MatriculaExistenteException;
+import model.CadastroExceptions.EspacoExistenteException;
+
 
 public class BancoDeDados {
 
@@ -11,40 +19,66 @@ public class BancoDeDados {
     private static final List<EspacosFisicos> espacos = new ArrayList<>();
     private static final List<Reserva> reservas = new ArrayList<>();
 
-    private void verificarMatriculaExistente(String matricula) throws CadastroExceptions.MatriculaExistenteException {
+
+    private void verificarMatriculaExistente(String matricula) throws MatriculaExistenteException {
         for (Usuario usuario : usuarios) {
             if (usuario.getMatricula().equals(matricula)) {
-                throw new CadastroExceptions.MatriculaExistenteException("Matrícula " + matricula + " já cadastrada.");
+                throw new MatriculaExistenteException("Matrícula " + matricula + " já cadastrada.");
             }
         }
     }
-    private void verificarEspacoExiste(String nome, String localizacao) throws CadastroExceptions.EspacoExistenteException {
+    private void verificarEspacoExiste(String nome, String localizacao) throws EspacoExistenteException {
         for (EspacosFisicos espaco : espacos) {
             if (espaco.getNome().equalsIgnoreCase(nome) && espaco.getLocal().equalsIgnoreCase(localizacao)) {
-                throw new CadastroExceptions.EspacoExistenteException("Espaço '" + nome + "' em '" + localizacao + "' já existe.");
+                throw new EspacoExistenteException("Espaço '" + nome + "' em '" + localizacao + "' já existe.");
             }
         }
     }
 
-    // Adicionar dados
+    private void validarTelefone(String telefone) throws TelefoneInvalidoException {
+        if (!telefone.matches("\\d+")) {
+            throw new TelefoneInvalidoException("Telefone deve conter apenas números.");
+        }
+    }
+
+    private void validarMatricula(String matricula) throws MatriculaInvalidaException {
+        if (!matricula.matches("\\d+")) {
+            throw new MatriculaInvalidaException("Matrícula deve conter apenas números.");
+        }
+    }
+
     public void cadastrarAluno(String nomeCompleto, String email, String telefone,
-                             String senha, String matricula, String curso, int semestre) throws CadastroExceptions.MatriculaExistenteException {
+                             String senha, String matricula, String curso, int semestre)
+                             throws MatriculaExistenteException, TelefoneInvalidoException, MatriculaInvalidaException, SemestreInvalidoException {
+        validarTelefone(telefone);
+        validarMatricula(matricula);
+        if (semestre != 1 && semestre != 2) {
+            throw new SemestreInvalidoException("Semestre deve ser 1 ou 2.");
+        }
         verificarMatriculaExistente(matricula);
         usuarios.add(new Aluno(nomeCompleto, email, telefone, senha, matricula, curso, semestre));
     }
+
     public void cadastrarProfessor(String nomeCompleto, String email, String telefone,
-                                 String senha, String matricula, String curso, String cargoAcademico) throws CadastroExceptions.MatriculaExistenteException {
+                                 String senha, String matricula, String curso, String cargoAcademico)
+                                 throws MatriculaExistenteException, TelefoneInvalidoException, MatriculaInvalidaException {
+        validarTelefone(telefone);
+        validarMatricula(matricula);
         verificarMatriculaExistente(matricula);
         usuarios.add(new Professor(nomeCompleto, email, telefone, senha, matricula, curso, cargoAcademico));
     }
+
     public void cadastrarServidorADM(String nomeCompleto, String email, String telefone,
-                                   String senha, String matricula, String funcao, String departamento) throws CadastroExceptions.MatriculaExistenteException {
+                                   String senha, String matricula, String funcao, String departamento)
+                                   throws MatriculaExistenteException, TelefoneInvalidoException, MatriculaInvalidaException {
+        validarTelefone(telefone);
+        validarMatricula(matricula);
         verificarMatriculaExistente(matricula);
         usuarios.add(new ServidorADM(nomeCompleto, email, telefone, senha, matricula, funcao, departamento));
     }
 
-    public void cadastrarEspaco(String nome, String localizacao, String tipo, int capacidade, List<String> equipamentos) throws CadastroExceptions.EspacoExistenteException {
-        verificarEspacoExiste(nome, localizacao); // Lança EspacoExistenteException se já existir
+    public void cadastrarEspaco(String nome, String localizacao, String tipo, int capacidade, List<String> equipamentos) throws EspacoExistenteException {
+        verificarEspacoExiste(nome, localizacao);
         espacos.add(new EspacosFisicos(nome, localizacao, tipo, capacidade, equipamentos));
         System.out.println(tipo + " cadastrado com sucesso!");
     }
@@ -53,19 +87,18 @@ public class BancoDeDados {
         reservas.add(reserva);
     }
 
-
-    // Acesso aos dados
     public List<Usuario> getTodosUsuarios() {
         return new ArrayList<>(usuarios);
     }
     public List<EspacosFisicos> getTodosEspacos(){
         return new ArrayList<>(espacos);
     }
+
     public List<Reserva> getTodasReservas(){
         return new ArrayList<>(reservas);
     }
 
-    
+
     public Usuario getUsuarioEmail(String email){
         for (Usuario usuario : usuarios) {
             if (usuario.getEmailInstitucional().equalsIgnoreCase(email)) {
@@ -82,6 +115,7 @@ public class BancoDeDados {
         }
         return null;
     }
+
     public EspacosFisicos getEspaco(String nome){
         for (EspacosFisicos espaco : espacos) {
             if (espaco.getNome().equalsIgnoreCase(nome)) {
@@ -90,57 +124,93 @@ public class BancoDeDados {
         }
         return null;
     }
-    public EspacosFisicos getEspaco(int capacidade){
+
+    public EspacosFisicos getEspacoPorId(UUID id) {
         for (EspacosFisicos espaco : espacos) {
-            if (espaco.getCapacidade() >= capacidade) {
+            if (espaco.getId().equals(id)) {
                 return espaco;
             }
         }
         return null;
     }
-    public List<Reserva> getReservasUsuario(Usuario u){
-        List<Reserva> reservasDoUsuario = new ArrayList<>();
-        for (Reserva reserva : reservas) {
-            if (reserva.getUsuario().equals(u)) {
-                reservasDoUsuario.add(reserva);
+
+    public List<EspacosFisicos> getEspacosPorCapacidadeMinima(int capacidade) {
+        List<EspacosFisicos> espacosAtendendoCapacidade = new ArrayList<>();
+        for (EspacosFisicos espaco : espacos) {
+            if (espaco.getCapacidade() >= capacidade) {
+                espacosAtendendoCapacidade.add(espaco);
             }
         }
-        return reservasDoUsuario;
+        return espacosAtendendoCapacidade;
     }
-    public List<Reserva> getReservasEspaco(EspacosFisicos e){
-        List<Reserva> reservasDoEspaco = new ArrayList<>();
+
+    public List<EspacosFisicos> getEspacoPorTipo(String tipo) {
+        List<EspacosFisicos> espacosDoTipo = new ArrayList<>();
+        for (EspacosFisicos espaco : espacos) {
+            if (espaco.getTipo().equalsIgnoreCase(tipo)) {
+                espacosDoTipo.add(espaco);
+            }
+        }
+        return espacosDoTipo;
+    }
+
+    public List<Reserva> getReserva(EspacosFisicos e, LocalDate inicio, LocalDate fim) {
+        List<Reserva> reservasFiltradas = new ArrayList<>();
+
+        LocalDateTime inicioPeriodo = inicio.atStartOfDay();
+        LocalDateTime fimPeriodo = fim.atTime(23, 59, 59);
+
         for (Reserva reserva : reservas) {
+
             if (reserva.getEspaco().equals(e)) {
-                reservasDoEspaco.add(reserva);
+                LocalDateTime dataReservaInicio = reserva.getInicioFim()[0];
+                LocalDateTime dataReservaFim = reserva.getInicioFim()[1];
+
+                
+                if (!(dataReservaFim.isBefore(inicioPeriodo) || dataReservaInicio.isAfter(fimPeriodo))) {
+                    reservasFiltradas.add(reserva);
+                }
             }
         }
-        return reservasDoEspaco;
+        return reservasFiltradas;
     }
-    public List<Reserva> getReserva(Usuario u, LocalDate data){
+
+    
+    public List<Reserva> getReserva(EspacosFisicos e, LocalDate dia) {
         List<Reserva> reservasFiltradas = new ArrayList<>();
         for (Reserva reserva : reservas) {
-            if (reserva.getUsuario().equals(u) && reserva.getInicioFim()[0].toLocalDate().equals(data)) {
+           
+            if (reserva.getEspaco().equals(e) && reserva.getInicioFim()[0].toLocalDate().equals(dia)) {
                 reservasFiltradas.add(reserva);
             }
         }
         return reservasFiltradas;
     }
-    public List<Reserva> getReserva(EspacosFisicos e, LocalDate data){
-        List<Reserva> reservasFiltradas = new ArrayList<>();
+
+
+    public static Reserva getReserva(UUID id) {
         for (Reserva reserva : reservas) {
-            if (reserva.getEspaco().equals(e) && reserva.getInicioFim()[0].toLocalDate().equals(data)) {
-                reservasFiltradas.add(reserva);
+            if (reserva.getId().equals(id)) {
+                return reserva;
             }
         }
-        return reservasFiltradas;
+        return null; 
     }
-    public List<Reserva> getReserva(Usuario u, EspacosFisicos e){
-        List<Reserva> reservasFiltradas = new ArrayList<>();
+
+
+    public List<Reserva> getReservasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
+        List<Reserva> reservasNoPeriodo = new ArrayList<>();
+        LocalDateTime inicioPeriodo = dataInicial.atStartOfDay();
+        LocalDateTime fimPeriodo = dataFinal.atTime(23, 59, 59);
+
         for (Reserva reserva : reservas) {
-            if (reserva.getUsuario().equals(u) && reserva.getEspaco().equals(e)) {
-                reservasFiltradas.add(reserva);
+            LocalDateTime dataReservaInicio = reserva.getInicioFim()[0];
+            LocalDateTime dataReservaFim = reserva.getInicioFim()[1];
+
+            if (!(dataReservaFim.isBefore(inicioPeriodo) || dataReservaInicio.isAfter(fimPeriodo))) {
+                reservasNoPeriodo.add(reserva);
             }
         }
-        return reservasFiltradas;
+        return reservasNoPeriodo;
     }
 }
