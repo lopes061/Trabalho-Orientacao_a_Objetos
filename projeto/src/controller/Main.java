@@ -1,6 +1,8 @@
 package controller;
 
 import javax.swing.JOptionPane;
+import model.CadastroExceptions.HorarioIndisponivelException;
+import model.CadastroExceptions.DiasExcedidosException;
 
 import java.io.FileWriter;
 import java.io.IOException;
