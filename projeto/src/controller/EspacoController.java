@@ -21,7 +21,7 @@ public abstract class EspacoController {
 
     public static String getHorariosSemana(UUID id){
 
-        final long DIAS_A_EXIBIR = 7L;
+        final long DIAS_A_EXIBIR = 6L;
         final LocalDate hoje = LocalDate.now();
         final LocalDate dataFinal = hoje.plusDays(DIAS_A_EXIBIR);
 
@@ -29,8 +29,7 @@ public abstract class EspacoController {
         EspacosFisicos espaco = BancoDeDados.getEspacoPorId(id);
         List<Reserva> ocupados = BancoDeDados.getReserva(espaco, hoje, dataFinal);
 
-        // --- 2. PRÉ-PROCESSAMENTO DOS DADOS ---
-        // Cria um mapa onde a chave é o dia e o valor é um conjunto com as horas ocupadas
+        // Mapa onde a chave é o dia e o valor é um conjunto com as horas ocupadas
         Map<LocalDate, Set<Integer>> slotsOcupados = new HashMap<>();
 
         for (Reserva reserva : ocupados) {
@@ -46,7 +45,7 @@ public abstract class EspacoController {
             }
         }
 
-        // --- 3. MONTAGEM DA STRING DA TABELA ---
+        // --- STRING DA TABELA ---
         StringBuilder tabela = new StringBuilder();
 
         // Monta o cabeçalho com os dias

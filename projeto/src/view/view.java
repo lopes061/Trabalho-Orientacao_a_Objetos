@@ -3,13 +3,16 @@ package view;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import controller.BancoDeDados;
+import controller.EspacoController;
 import model.EspacosFisicos;
+import model.Reserva;
 
 public class view {
 
@@ -303,25 +306,28 @@ public class view {
     }
 
     // Pede para você escolher uma data para o agendamento
-    public static LocalDate selecionarDataAgendamento(LocalDate dataInicial, LocalDate dataFinal) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        StringBuilder sb = new StringBuilder("Escolha uma data para o seu agendamento (formato dd/MM/aaaa):\n");
-        sb.append("Período liberado: de ").append(dataInicial.format(formatter)).append(" até ").append(dataFinal.format(formatter)).append("\n");
+    public static LocalDate selecionarDataAgendamento(UUID id) {
 
-        String input = JOptionPane.showInputDialog(sb.toString());
+		final long DIAS_A_EXIBIR = 7L;
+        final LocalDate hoje = LocalDate.now();
+        final LocalDate dataFinal = hoje.plusDays(DIAS_A_EXIBIR);
+
+        String tabela = "Selecione a data desejada\nFormato dd/MM\n\n" + EspacoController.getHorariosSemana(id);
+
+        String input = JOptionPane.showInputDialog(tabela);
         if (input == null || input.trim().isEmpty()) {
             return null; 
         }
         try {
-            LocalDate dataSelecionada = LocalDate.parse(input.trim(), formatter);
+            LocalDate dataSelecionada = LocalDate.parse(input.trim(), Reserva.dataPadrao);
             // Checa se a data que você escolheu está dentro do período permitido
-            if (dataSelecionada.isBefore(dataInicial) || dataSelecionada.isAfter(dataFinal)) {
-                exibirMensagem("Essa data não está disponível. Por favor, escolha uma data entre " + dataInicial.format(formatter) + " e " + dataFinal.format(formatter) + ".");
+            if (dataSelecionada.isBefore(hoje) || dataSelecionada.isAfter(dataFinal)) {
+                exibirMensagem("Essa data não está disponível. Por favor, escolha uma data entre " + hoje.format(Reserva.dataPadrao) + " e " + dataFinal.format(Reserva.dataPadrao) + ".");
                 return null;
             }
             return dataSelecionada;
         } catch (DateTimeParseException e) {
-            exibirMensagem("Formato de data incorreto. Por favor, use dd/MM/aaaa (ex: 09/07/2025).");
+            exibirMensagem("Formato de data incorreto. Por favor, use dd/MM (ex: 09/07).");
             return null;
         }
     }

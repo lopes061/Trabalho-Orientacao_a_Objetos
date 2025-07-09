@@ -103,10 +103,6 @@ public class Agendamento {
         }
 
         // Define o período de agendamento (hoje até 6 dias para frente)
-        LocalDate hoje = LocalDate.now();
-        LocalDate dataInicialSemana = hoje;
-        LocalDate dataFinalSemana = hoje.plusDays(6); // Intervalo de 7 dias (hoje + 6 dias)
-
         List<LocalDate> datasEscolhidas = new ArrayList<>();
         int quantidadeDiasAgendamento = 1; // Padrão: 1 dia
 
@@ -128,13 +124,13 @@ public class Agendamento {
             boolean dataValida = false;
             while (!dataValida) {
                 // Pede para escolher a data
-                dataParaAgendar = view.selecionarDataAgendamento(dataInicialSemana, dataFinalSemana);
+                dataParaAgendar = view.selecionarDataAgendamento(idEspacoSelecionado);
                 if (dataParaAgendar == null) {
                     view.exibirMensagem("Seleção de data cancelada. Agendamento interrompido.");
                     return;
                 }
                 // Não pode agendar no passado
-                if (dataParaAgendar.isBefore(hoje)) {
+                if (dataParaAgendar.isBefore(LocalDate.now())) {
                     view.exibirMensagem("Não dá pra agendar no passado. Por favor, escolha uma data a partir de hoje.");
                 // Não pode agendar na mesma data duas vezes (se for mais de 1 dia)
                 } else if (datasEscolhidas.contains(dataParaAgendar)) {
