@@ -3,7 +3,6 @@ package view;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -88,12 +87,13 @@ public class view {
 	}
 
 	// Pede o semestre (apenas para alunos)
-	public static String lerSemestre(){
+	public static int lerSemestre(){
 		String semestreStr = JOptionPane.showInputDialog("Em qual semestre você está?");
 		if (semestreStr == null || semestreStr.trim().isEmpty()) {
-            return "-1";
+            return -1;
         }
-		return semestreStr;
+		int semestre = Integer.parseInt(semestreStr);
+		return semestre;
 	}
 
 	// Pede o cargo (para professores)

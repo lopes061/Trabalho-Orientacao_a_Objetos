@@ -2,11 +2,6 @@ package controller;
 
 import javax.swing.JOptionPane;
 import java.util.List;
-
-import model.CadastroExceptions.MatriculaExistenteException;
-import model.CadastroExceptions.MatriculaInvalidaException;
-import model.CadastroExceptions.SemestreInvalidoException;
-import model.CadastroExceptions.TelefoneInvalidoException;
 import model.Usuario;
 import view.*;
 
@@ -14,6 +9,7 @@ public class Main {
     public static void main(String[] args) throws Exception, Exception, Exception, Exception {
         int opcao = view.menuInicial();
 
+        // Menu inicial
         while (opcao != 0){
             String nome, matricula, senha;
             switch(opcao){
