@@ -10,6 +10,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+// Importa as novas exceções
+import model.CadastroExceptions.HorarioIndisponivelException;
+import model.CadastroExceptions.DiasExcedidosException;
+
 public class Agendamento {
 
     // Pega o ID do espaço que o usuário escolheu
@@ -43,7 +47,8 @@ public class Agendamento {
     }
 
     // Começa o processo de agendamento
-    public static void iniciarAgendamento(Usuario usuarioLogado) {
+    // Adicionando as novas exceções na assinatura do método
+    public static void iniciarAgendamento(Usuario usuarioLogado) throws HorarioIndisponivelException, DiasExcedidosException {
         // Primeiro, o usuário escolhe que tipo de espaço quer agendar
         int tipoEscolhido = view.menuAgendamento();
         String tipoEspacoString = "";
@@ -100,7 +105,7 @@ public class Agendamento {
         // Define o período de agendamento (hoje até 6 dias para frente)
         LocalDate hoje = LocalDate.now();
         LocalDate dataInicialSemana = hoje;
-        LocalDate dataFinalSemana = hoje.plusDays(6);
+        LocalDate dataFinalSemana = hoje.plusDays(6); // Intervalo de 7 dias (hoje + 6 dias)
 
         List<LocalDate> datasEscolhidas = new ArrayList<>();
         int quantidadeDiasAgendamento = 1; // Padrão: 1 dia
@@ -108,9 +113,12 @@ public class Agendamento {
         // Se for um servidor administrativo, ele pode agendar para mais dias
         if (usuarioLogado instanceof ServidorADM) {
             quantidadeDiasAgendamento = view.solicitarQuantidadeDias();
-            if (quantidadeDiasAgendamento <= 0) {
-                view.exibirMensagem("A quantidade de dias está incorreta. Agendamento cancelado.");
-                return;
+            int maxDiasPermitidosADM = 7; // Exemplo: Servidores podem agendar até 7 dias no total
+            if (quantidadeDiasAgendamento <= 0 || quantidadeDiasAgendamento > maxDiasPermitidosADM) {
+                // Lança a DiasExcedidosException
+                throw new CadastroExceptions.DiasExcedidosException(
+                    "A quantidade de dias para agendamento deve ser entre 1 e " + maxDiasPermitidosADM + " para Servidores Administrativos."
+                );
             }
         }
 
@@ -148,12 +156,22 @@ public class Agendamento {
             List<LocalTime[]> horariosDisponiveisNoDia = gerarHorariosDisponiveis(reservasNoDia);
 
             view.exibirMensagem("Olha os horários disponíveis para " + dataAgendamento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ":");
+
+            // Se não houver horários disponíveis, lança HorarioIndisponivelException
+            if (horariosDisponiveisNoDia.isEmpty()) {
+                throw new CadastroExceptions.HorarioIndisponivelException(
+                    "Não há horários disponíveis para " + espacoSelecionado.getNome() + " em " + dataAgendamento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "."
+                );
+            }
+
             // Pede para o usuário escolher o horário
             LocalTime[] horarioEscolhido = view.selecionarHorario(horariosDisponiveisNoDia);
 
             if (horarioEscolhido == null) {
-                view.exibirMensagem("Você cancelou a seleção do horário. Agendamento interrompido.");
-                return;
+                // Lança a HorarioIndisponivelException se a seleção for cancelada ou inválida
+                throw new CadastroExceptions.HorarioIndisponivelException(
+                    "A seleção de horário foi cancelada ou um horário inválido foi escolhido. Agendamento interrompido."
+                );
             }
 
             // Cria o objeto de reserva com a data e horário

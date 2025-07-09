@@ -2,6 +2,9 @@ package controller;
 
 import javax.swing.JOptionPane;
 import java.util.List;
+
+import model.CadastroExceptions.DiasExcedidosException;
+import model.CadastroExceptions.HorarioIndisponivelException;
 import model.Usuario;
 import view.*;
 
@@ -77,6 +80,12 @@ public class Main {
                                     break;
                                 case 2:
                                     // Agendamento
+                                    // Exceções para agendamento
+                                     try {
+                                        Agendamento.iniciarAgendamento(u);
+                                    } catch (HorarioIndisponivelException | DiasExcedidosException e) {
+                                        view.exibirMensagem("Erro no agendamento: " + e.getMessage());
+                                    }
                                     break;
                                 case 3:
                                     // Exportar dados
