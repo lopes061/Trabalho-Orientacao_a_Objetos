@@ -5,13 +5,14 @@
 * OO - Orientação a Objetos
 * Prof. André Luiz Peron Martins Lanna
 * Componentes do grupo:
-| Matrícula | Nome                             |
-|-----------|----------------------------------|
-| 231011041 | Alyssa Werneck Bennett Ferreira  |
-| 232000721 | Arthur Feitosa Gonçalves Lima    |
-| 222006679 | Eduardo Henrique Coutinho Gurjão |
-| 232002000 | Enzo Lopes Ferreira              |
-| 232002010 | Erick Ryan Caetano Guimarães     |
+
+| **Matrícula** | **Nome**                         |
+|:-------------:|:---------------------------------|
+|   231011041   | Alyssa Werneck Bennett Ferreira  |
+|   232000721   | Arthur Feitosa Gonçalves Lima    |
+|   222006679   | Eduardo Henrique Coutinho Gurjão |
+|   232002000   | Enzo Lopes Ferreira              |
+|   232002010   | Erick Ryan Caetano Guimarães     |
 
 **Objetivo:**
 Desenvolver um sistema Java que aplique todos os conceitos de orientação a objetos de forma organizada e funicional, incluindo explicitamente os conceitos de modularidade, encapsulamento, herança, polimorfismo e tratamento de exceções personalizadas.
