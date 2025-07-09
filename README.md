@@ -1,4 +1,4 @@
-# Trabalho Prático de Orientção a Objetos
+# Trabalho Prático de Orientação a Objetos
 
 * Unb - Universidade de Brasília
 * FCTE - Faculdade de Ciências e Tecnologias em Engenharia
