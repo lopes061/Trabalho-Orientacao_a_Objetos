@@ -73,7 +73,7 @@ public class view {
 
 	// Pede a senha
 	public static String lerSenha(){
-		return JOptionPane.showInputDialog("Agora, crie uma senha:");
+		return JOptionPane.showInputDialog("Agora, digite sua senha:");
 	}
 
 	// Pede a matrícula
