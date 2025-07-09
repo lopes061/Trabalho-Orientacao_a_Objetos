@@ -23,36 +23,36 @@ public class EspacosFisicos{
         this.equipamentos = equipamentos;
     }
 
-    // Getters
-    protected UUID getId(){ return id; }
-    protected String getNome(){ return nome; }
-    protected String getLocal(){ return localizacao; }
-    protected String getTipo(){ return tipo; }
-    protected int getCapacidade(){ return capacidade; }
-    protected List<String> getEquip(){ return equipamentos; }
+        // Getters publicos
+        public UUID getId(){ return id; }
+        public String getNome(){ return nome; }
+        public String getLocal(){ return localizacao; }
+        public String getTipo(){ return tipo; }
+        public int getCapacidade(){ return capacidade; }
+        public List<String> getEquip(){ return equipamentos; }
 
 
-    // Setters
-    protected void setNome(String nome){
-        this.nome = nome;
-    }
-    protected void setLocal(String local){
-        localizacao = local;
-    }
-    protected void setTipo(String tp){
-        tipo = tp;
-    }
-    protected void setCapacidade(int max){
-        capacidade = max;
-    }
+        // Setters
+        protected void setNome(String nome){
+            this.nome = nome;
+        }
+        protected void setLocal(String local){
+            localizacao = local;
+        }
+        protected void setTipo(String tp){
+            tipo = tp;
+        }
+        protected void setCapacidade(int max){
+            capacidade = max;
+        }
 
-    
-    protected boolean adicionarUmEquipamento(String equip){
-        boolean funcionou = equipamentos.add(equip);
-        return funcionou;
-    }
-    protected boolean adicionarEquipamentos(List<String> equip){
-        boolean funcionou = equipamentos.addAll(equip);
-        return funcionou;
-    }
-}
+
+        protected boolean adicionarUmEquipamento(String equip){
+            boolean funcionou = equipamentos.add(equip);
+            return funcionou;
+        }
+        protected boolean adicionarEquipamentos(List<String> equip){
+            boolean funcionou = equipamentos.addAll(equip);
+            return funcionou;
+        }
+    }   
