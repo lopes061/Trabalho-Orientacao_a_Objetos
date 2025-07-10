@@ -249,25 +249,35 @@ public class view {
 	}
 
 	// Pede os equipamentos da sala
-	public static List<String> lerEquipamentos(){
-		List<String> lista = new ArrayList<>();
-		String equipamento;
-		int saida = 1;
+	 public static List<String> lerEquipamentos(){
+        List<String> lista = new ArrayList<>();
+        String equipamento;
+        boolean pararLoop = false; // Usamos uma flag booleana para controlar o loop
 
-		do{
-			equipamento = JOptionPane.showInputDialog("Quais equipamentos essa sala tem? (Digite '0' e Enter quando terminar):");
+        do{
+            if (lista.isEmpty()) { 
+                equipamento = JOptionPane.showInputDialog("Digite os equipamentos contidos na sala (para parar, digite apenas 0 e pressione Enter): ");
+            } else { 
+                equipamento = JOptionPane.showInputDialog("Digite o próximo equipamento (para parar, digite apenas 0): ");
+            }
 
-			if (equipamento == null) { // Se o usuário apertar Cancelar
-				saida = 0;
-			} else if (equipamento.trim().equals("0")) { // Se ele digitar '0'
-				saida = 0;
-			} else {
-				lista.add(equipamento.trim());
-			}
-		}while(saida != 0);
+            // Verifica se o usuário cancelou a entrada ou digitou uma string vazia
+            if (equipamento == null || equipamento.trim().isEmpty()) {
+                pararLoop = true; 
+            } 
+            // Verifica se o usuário digitou "0" para parar
+            else if (equipamento.trim().equals("0")) { 
+                pararLoop = true; 
+            } 
+            // Se não for "0" e não for nulo/vazio, adiciona o equipamento à lista
+            else {
+                lista.add(equipamento.trim()); 
+            }
+        } while (!pararLoop); 
+        
+        return lista;
+    }
 
-		return lista;
-	}
 
 
     // Mostra os detalhes de um espaço e pede pra você confirmar se é esse mesmo
@@ -306,23 +316,33 @@ public class view {
     }
 
     // Pede para você escolher uma data para o agendamento
-    public static LocalDate selecionarDataAgendamento(UUID id) {
+   public static LocalDate selecionarDataAgendamento(UUID id) {
 
-		final long DIAS_A_EXIBIR = 7L;
+        final long DIAS_A_EXIBIR = 7L;
         final LocalDate hoje = LocalDate.now();
-        final LocalDate dataFinal = hoje.plusDays(DIAS_A_EXIBIR);
+        final LocalDate ultimoDiaExibido = hoje.plusDays(DIAS_A_EXIBIR - 1);
 
-        String tabela = "Selecione a data desejada\nFormato dd/MM\n\n" + EspacoController.getHorariosSemana(id);
+        String tabela = "Selecione a data desejada (entre " 
+                      + hoje.format(Reserva.dataPadrao) + " e " 
+                      + ultimoDiaExibido.format(Reserva.dataPadrao) + ")\n"
+                      + "Formato: dd/MM\n\n" 
+                      + EspacoController.getHorariosSemana(id);
 
         String input = JOptionPane.showInputDialog(tabela);
         if (input == null || input.trim().isEmpty()) {
             return null; 
         }
         try {
-            LocalDate dataSelecionada = LocalDate.parse(input.trim(), Reserva.dataPadrao);
-            // Checa se a data que você escolheu está dentro do período permitido
-            if (dataSelecionada.isBefore(hoje) || dataSelecionada.isAfter(dataFinal)) {
-                exibirMensagem("Essa data não está disponível. Por favor, escolha uma data entre " + hoje.format(Reserva.dataPadrao) + " e " + dataFinal.format(Reserva.dataPadrao) + ".");
+            DateTimeFormatter parserFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            String inputComAno = input.trim() + "/" + LocalDate.now().getYear();
+            
+            LocalDate dataSelecionada = LocalDate.parse(inputComAno, parserFormatter);
+            
+            if (dataSelecionada.isBefore(hoje) || dataSelecionada.isAfter(ultimoDiaExibido)) {
+                exibirMensagem("Essa data não está disponível. Por favor, escolha uma data entre " 
+                               + hoje.format(Reserva.dataPadrao) + " e " 
+                               + ultimoDiaExibido.format(Reserva.dataPadrao) + ".");
                 return null;
             }
             return dataSelecionada;
@@ -331,6 +351,7 @@ public class view {
             return null;
         }
     }
+    
 
     // Mostra os horários livres e pede para você escolher um
     public static LocalTime[] selecionarHorario(List<LocalTime[]> horariosDisponiveis) {
