@@ -36,38 +36,56 @@ public class Main {
                             opcaoInv();
                             break;
                         }
-
+                        do{
                         nome = view.lerNome();
                         email = view.lerEmail();
                         telefone = view.lerTelefone();
                         senha = view.lerSenha();
                         matricula = view.lerMatricula();
-
+                        if (nome == null || email == null || telefone == null || senha == null || matricula == null) {
+                            JOptionPane.showMessageDialog(null, "Por favor insira dados validos!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                        }
+                        }while(nome == null || email == null || telefone == null || senha == null || matricula == null);
                         switch (opcao) {
 
                             case 1:
-
+                                do{
                                 // Aluno
                                 curso = view.lerCurso();
                                 semestre = view.lerSemestre();
+                                
+                                    if (curso == null) {
+                                        JOptionPane.showMessageDialog(null, "Por favor insira dados validos!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }while(curso == null);
 
                                 BancoDeDados.cadastrarAluno(nome, email, telefone, senha, matricula, curso, semestre);
 
                                 break;
                             case 2:
-
+                                do{
                                 // Professor
                                 curso = view.lerCurso();
                                 cargo = view.lerCargo();
+
+                                    if (curso == null || cargo == null) {
+                                        JOptionPane.showMessageDialog(null, "Por favor insira dados validos!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }while(curso == null || cargo == null);
 
                                 BancoDeDados.cadastrarProfessor(nome, email, telefone, senha, matricula, curso, cargo);
 
                                 break;
                             case 3:
-
+                                do{
                                 // Servidor ADM
                                 funcao = view.lerFuncao();
                                 departamento = view.lerDepartamento();
+
+                                    if (funcao == null || departamento == null) {
+                                        JOptionPane.showMessageDialog(null, "Por favor insira dados validos!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }while(funcao == null || departamento == null);
 
                                 BancoDeDados.cadastrarServidorADM(nome, email, telefone, senha, matricula, funcao, departamento);
 
@@ -79,11 +97,14 @@ public class Main {
 
                     break;
                 case 2:
-
+                    do{
                     // Login
                     matricula = view.lerMatricula();
                     senha = view.lerSenha();
-
+                    if(matricula == null || senha == null){
+                        JOptionPane.showMessageDialog(null, "Por favor insira Usuario/Senha validos!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                    }
+                    }while(matricula == null || senha == null);
                     Usuario u = BancoDeDados.fazerLogin(matricula, senha);
 
                     if(u == null){
@@ -102,14 +123,18 @@ public class Main {
                             String msg;
                             switch (opcao) {
                                 case 1:
-
+                                    do{
                                     // Cadastro de espaço físico
                                     tipo = view.lerTipoSala();
                                     nome = view.lerNomeSala();
                                     localizacao = view.lerLocalSala();
                                     capacidade = view.lerCapacidadeSala();
                                     equipamento = view.lerEquipamentos();
+                                    if (tipo == null || nome == null || localizacao == null || capacidade < 1 || equipamento == null) {
+                                        JOptionPane.showMessageDialog(null, "Por favor insira valores validos nos campos!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                                    }
 
+                                    }while(tipo == null || nome == null || localizacao == null || capacidade < 1 || equipamento == null);
                                     espaco = BancoDeDados.cadastrarEspaco(nome, localizacao, tipo, capacidade, equipamento);
                                     msg = EspacoController.getInfoCadastro(espaco);
 
@@ -133,9 +158,9 @@ public class Main {
                                 default:
                                     opcaoInv();
                                     break;
-                            }
+                                }
                             opcao = view.loginSucesso();
-                        }
+                            }
                     }
                 case 0:
                     break;
